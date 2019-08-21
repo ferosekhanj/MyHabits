@@ -5,8 +5,8 @@
 }
 <style>
     img {
-        width: 188px;
-        height: 220px;
+        width: 120px;
+        height: 150px;
     }
 </style>
 @if (ViewBag.Error != null)
@@ -23,7 +23,7 @@
     @foreach (var user in ViewBag.Users)
     {
         <div class="col-sm">
-            <div class="card" style="width: 16rem;">
+            <div class="card" style="width: 10rem;">
                 <img src="~/images/@(user.Name.ToLower()).png" class="card-img-top" alt="...">
                 <!--img src="~/images/@(user.Name).png" class="card-img-top" alt="..."-->
                 <div class="card-body">
