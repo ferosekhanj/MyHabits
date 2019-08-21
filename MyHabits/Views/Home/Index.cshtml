@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    img {
+        width: 188px;
+        height: 220px;
+    }
+</style>
+<div class="row">
+    @foreach (var user in ViewBag.Users)
+    {
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+                <img src="~/images/plain.png" class="card-img-top" alt="...">
+                <!--img src="~/images/@(user.Name).png" class="card-img-top" alt="..."-->
+                <div class="card-body">
+                    <h5 class="card-title">@user.Name</h5>
+                    <p class="card-text">Money $@user.Reward</p>
+                    <a href="#" class="btn btn-primary">Very Good!!</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row" style="margin-top:20px;">
+    <form class="form-inline" asp-action="CreditReward">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="tagid" class="sr-only">Card</label>
+            <input type="text" class="form-control" id="tagid" name="tagid" placeholder="Swipe your card">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Add</button>
+    </form>
+</div>
+<script>
+    window.onload = function () {
+        document.getElementById("tagid").focus();
+    }
+</script>
