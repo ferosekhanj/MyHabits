@@ -18,6 +18,7 @@ namespace MyHabits.Controllers
         {
             var users = _context.Users.ToList();
             ViewBag.Users = users;
+            ViewBag.Error = TempData["Error"];
             return View();
         }
 
@@ -25,13 +26,23 @@ namespace MyHabits.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreditReward(string tagid)
         {
-            Activity activity = _context.Activities.Where(a => a.Tag == tagid).First();
-            User user = _context.Users.Where(u => u.Id == activity.UserId).First();
-            user.Reward += activity.Reward;
-            _context.Users.Update(user);
-            _context.SaveChanges();
-            ViewBag.Users = _context.Users.ToList();
-            return RedirectToAction("Index");
+            if (HttpContext.Session.TryGetValue(tagid, out byte[] value))
+            {
+                // Already added
+                TempData["Error"] = "Card already added.";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                Activity activity = _context.Activities.Where(a => a.Tag == tagid).First();
+                User user = _context.Users.Where(u => u.Id == activity.UserId).First();
+                user.Reward += activity.Reward;
+                _context.Users.Update(user);
+                _context.SaveChanges();
+                ViewBag.Users = _context.Users.ToList();
+                HttpContext.Session.Set(tagid,new byte[]{1});
+                return RedirectToAction("Index");
+            }
         }
     }
 }

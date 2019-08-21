@@ -27,8 +27,13 @@ namespace MyHabits
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            var connection = _config.GetConnectionString("MyHabits");
+            services.AddDistributedMemoryCache();
+            services.AddSession(opts =>
+            {
+                opts.IdleTimeout = TimeSpan.FromMinutes(5);
+            });
 
+            var connection = _config.GetConnectionString("MyHabits");
             services.AddDbContext<HabitContext>
                 (options => options.UseSqlServer(connection));
 
@@ -47,6 +52,7 @@ namespace MyHabits
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
