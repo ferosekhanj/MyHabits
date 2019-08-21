@@ -1,0 +1,1 @@
+﻿This is a simple asp.net core application to track habits.
