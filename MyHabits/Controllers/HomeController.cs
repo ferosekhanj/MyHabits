@@ -40,7 +40,7 @@ namespace MyHabits.Controllers
                 _context.Users.Update(user);
                 _context.SaveChanges();
                 ViewBag.Users = _context.Users.ToList();
-                //HttpContext.Session.Set(tagid,new byte[]{1});
+                HttpContext.Session.Set(tagid,new byte[]{1});
                 return RedirectToAction("Index");
             }
         }

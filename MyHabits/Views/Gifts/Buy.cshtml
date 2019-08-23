@@ -1,0 +1,69 @@
+﻿@model IEnumerable<MyHabits.Models.Gift>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Welcome @ViewBag.User.Name Gift Store!!</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Picture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Picture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @if( ViewBag.User.Reward >= item.Price)
+            {
+                <a href="javascript:buy(@item.Id)" class="btn btn-primary">Buy</a>
+            }
+            else
+            {
+                <a href="javascript:alert('You need to earn more!!')" class="btn btn-danger">Need $@(item.Price-ViewBag.User.Reward)</a>
+            }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<form id="buyForm" method="post" asp-action="BuyConfirmed">
+    <input id="UserId" name="UserId" type="hidden" value="@ViewBag.User.Id" />
+    <input id="GiftId" name="GiftId" type="hidden" value="-1" />
+</form>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to Home</a>
+</div>
+@section Scripts {
+<script>
+    function buy(giftId) {
+        $("#GiftId").val(giftId);
+        $("#buyForm").submit();
+    }
+</script>    
+}
