@@ -21,7 +21,7 @@ namespace MyHabits.Controllers
         // GET: Activities
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Activities.ToListAsync());
+            return View(await _context.Activities.Include(a=>a.User).ToListAsync());
         }
 
         // GET: Activities/Details/5

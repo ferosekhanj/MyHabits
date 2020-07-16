@@ -12,6 +12,7 @@ namespace MyHabits.Models
         public int Reward { get; set; }
         public string Tag { get; set; }
         public int UserId { get; set; }
+        public User User { get; set; }
 
         public override string ToString()
         {
