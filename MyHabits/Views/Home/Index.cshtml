@@ -28,7 +28,7 @@
                 <!--img src="~/images/@(user.Name).png" class="card-img-top" alt="..."-->
                 <div class="card-body">
                     <h5 class="card-title">@user.Name</h5>
-                    <p class="card-text">Money $@user.Reward</p>
+                    <p class="card-text">Money &#x20b9;@user.Reward</p>
                     <a asp-controller="Gifts" asp-action="Buy" asp-route-id="@user.Id" class="btn btn-primary">Buy Gift</a>
                 </div>
             </div>
@@ -39,7 +39,7 @@
     <form class="form-inline" asp-action="CreditReward">
         <div class="form-group mx-sm-3 mb-2">
             <label for="tagid" class="sr-only">Card</label>
-            <input type="text" class="form-control" id="tagid" name="tagid" placeholder="Swipe your card">
+            <input type="text" class="form-control" id="tagid" name="tagid" placeholder="Swipe your card" autocomplete="off">
         </div>
         <button type="submit" class="btn btn-primary mb-2">Add</button>
 
